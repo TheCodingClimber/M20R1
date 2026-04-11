@@ -1,16 +1,20 @@
-# React + Vite
+# M20R1 Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished single-page React and Vite landing page for M20R1's infrastructure and governance story.
 
-Currently, two official plugins are available:
+## What changed
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Replaced leftover Vite starter copy with a custom brand narrative and stronger visual hierarchy.
+- Moved the presentation into a responsive CSS system with a clearer design language.
+- Added a working inquiry prototype that validates fields and copies a structured brief to the clipboard.
+- Improved accessibility with semantic sections, visible focus states, and reduced-motion support.
 
-## React Compiler
+## Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `npm run dev` starts the local Vite dev server.
+- `npm run build` creates the production bundle.
+- `npm run lint` checks the React source with ESLint.
 
-## Expanding the ESLint configuration
+## Next production step
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The contact form is intentionally front-end only right now. To make it live, connect the submit handler in [`src/App.jsx`](./src/App.jsx) to Formspree, Resend, a serverless function, or your own backend route.
