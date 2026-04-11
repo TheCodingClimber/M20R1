@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import heroImage from "./assets/hero.png";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import "./App.css";
+
+const BareMetalCitadel = lazy(() => import("./components/BareMetalCitadel"));
 
 const navigation = [
   { label: "Capabilities", href: "#capabilities" },
@@ -344,22 +345,11 @@ function Hero() {
       <FadeIn delay={0.12}>
         <aside className="hero-panel">
           <div className="hero-panel__image-wrap">
-            <img
-              className="hero-panel__image"
-              src={heroImage}
-              alt="Layered system illustration representing an owned infrastructure stack."
-            />
-          </div>
-          <div className="hero-panel__card">
-            <div>
-              <p className="panel-label">Operating envelope</p>
-              <h2>One accountability chain from hardware to operator console.</h2>
-            </div>
-            <ul className="panel-list">
-              <li>Facility and environment treated as production infrastructure.</li>
-              <li>Control-plane design centered on validation, not appearances.</li>
-              <li>Small team, direct ownership, fewer handoff seams.</li>
-            </ul>
+            <Suspense
+              fallback={<div className="hero-scene hero-scene--loading" aria-hidden="true" />}
+            >
+              <BareMetalCitadel />
+            </Suspense>
           </div>
         </aside>
       </FadeIn>
