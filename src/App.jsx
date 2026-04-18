@@ -1,7 +1,6 @@
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
-
-const BareMetalCitadel = lazy(() => import("./components/BareMetalCitadel"));
+import heroVideoUrl from "./assets/M20R1Landing_Page.mp4";
 
 const navigation = [
   { label: "Capabilities", href: "#capabilities" },
@@ -342,17 +341,24 @@ function Hero() {
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.12}>
-        <aside className="hero-panel">
-          <div className="hero-panel__image-wrap">
-            <Suspense
-              fallback={<div className="hero-scene hero-scene--loading" aria-hidden="true" />}
-            >
-              <BareMetalCitadel />
-            </Suspense>
-          </div>
-        </aside>
-      </FadeIn>
+        <FadeIn delay={0.12}>
+          <aside className="hero-panel">
+            <div className="hero-panel__image-wrap">
+              <div className="hero-scene" aria-hidden="true">
+                <video
+                  className="hero-scene__video"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                >
+                  <source src={heroVideoUrl} type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </aside>
+        </FadeIn>
     </section>
   );
 }
