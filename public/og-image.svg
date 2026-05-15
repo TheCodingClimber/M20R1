@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">M20R1 Governed Infrastructure</title>
+  <desc id="desc">Owned compute, operational visibility, and direct operator control.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1200" y1="0" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0d1730" />
+      <stop offset=".58" stop-color="#09111f" />
+      <stop offset="1" stop-color="#050a12" />
+    </linearGradient>
+    <linearGradient id="accent" x1="122" x2="974" y1="142" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8bd3ff" />
+      <stop offset=".62" stop-color="#43b6ff" />
+      <stop offset="1" stop-color="#ff9966" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <path fill="none" stroke="#ffffff" stroke-opacity=".055" d="M0 105h1200M0 210h1200M0 315h1200M0 420h1200M0 525h1200M150 0v630M300 0v630M450 0v630M600 0v630M750 0v630M900 0v630M1050 0v630" />
+  <circle cx="952" cy="142" r="214" fill="#43b6ff" opacity=".12" />
+  <circle cx="1044" cy="504" r="188" fill="#ff9966" opacity=".12" />
+  <path fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="20" d="M126 421V202l119 159 119-159v219" />
+  <path fill="none" stroke="#ff9966" stroke-linecap="round" stroke-width="20" d="M425 196h38v229" />
+  <circle cx="463" cy="196" r="18" fill="#eff6ff" />
+  <circle cx="463" cy="425" r="18" fill="#8bd3ff" />
+  <text x="560" y="222" fill="#eff6ff" font-family="Space Grotesk, Manrope, Segoe UI, Arial, sans-serif" font-size="86" font-weight="700">M20R1</text>
+  <text x="560" y="318" fill="#8bd3ff" font-family="JetBrains Mono, Consolas, monospace" font-size="25" font-weight="600" letter-spacing="5">GOVERNED INFRASTRUCTURE</text>
+  <text x="560" y="405" fill="#c7d7e8" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="38" font-weight="500">Owned compute. Visible state.</text>
+  <text x="560" y="462" fill="#9fb6cf" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="34" font-weight="500">Direct operators for systems that cannot afford drift.</text>
+</svg>

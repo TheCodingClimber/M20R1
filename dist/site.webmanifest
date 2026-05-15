@@ -1,0 +1,21 @@
+{
+  "name": "M20R1",
+  "short_name": "M20R1",
+  "description": "Governed infrastructure for systems that cannot afford drift.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "en-US",
+  "categories": ["business", "productivity"],
+  "background_color": "#09111f",
+  "theme_color": "#09111f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
