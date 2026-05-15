@@ -11,9 +11,9 @@
   --accent-strong: #43b6ff;
   --accent-warm: #ff9966;
   --shadow: 0 22px 80px rgba(3, 8, 19, 0.45);
-  --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
-  --font-sans: "Manrope", "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "Consolas", monospace;
+  --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
 }
 
 html {
@@ -153,9 +153,19 @@ a {
   cursor: pointer;
 }
 
+.button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
 .button:hover,
 .button:focus-visible {
   transform: translateY(-1px);
+}
+
+.button:disabled:hover {
+  transform: none;
 }
 
 .button:focus-visible,
@@ -199,7 +209,6 @@ textarea:focus-visible {
 
 .hero h1,
 .section-heading h2,
-.hero-panel__card h2,
 .signal-card h2,
 .capability-card h3,
 .operating-card h3,
@@ -208,7 +217,7 @@ textarea:focus-visible {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 0.96;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
 }
 
 .hero h1 {
@@ -253,8 +262,7 @@ textarea:focus-visible {
 .hero-chips li,
 .signal-index,
 .card-kicker,
-.operating-count,
-.panel-label {
+.operating-count {
   border: 1px solid rgba(139, 211, 255, 0.16);
   background: rgba(255, 255, 255, 0.04);
   color: var(--accent);
@@ -275,7 +283,6 @@ textarea:focus-visible {
 }
 
 .hero-panel__image-wrap,
-.hero-panel__card,
 .signal-card,
 .capability-card,
 .operating-card,
@@ -339,12 +346,6 @@ textarea:focus-visible {
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 20%);
 }
 
-.hero-scene__canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
 .hero-scene__video {
   position: absolute;
   inset: 0;
@@ -358,81 +359,11 @@ textarea:focus-visible {
   transform-origin: bottom center;
 }
 
-.hero-scene__webgl {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-scene__badges {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero-scene__badges {
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.72rem;
-  width: min(18rem, calc(100% - 2rem));
-}
-
-.hero-scene__badge {
-  padding: 0.78rem 0.92rem;
-  border-radius: 20px;
-  border: 1px solid rgba(139, 211, 255, 0.1);
-  background: rgba(4, 10, 18, 0.58);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    0 10px 24px rgba(2, 6, 12, 0.3);
-  backdrop-filter: blur(16px);
-}
-
-.hero-scene__badge span {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.hero-scene__badge strong {
-  display: block;
-  margin-top: 0.34rem;
-  font-family: var(--font-display);
-  font-size: 0.94rem;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-}
-
-.hero-panel__card {
-  margin-top: -2.4rem;
-  margin-inline: 1.4rem;
-  border-radius: 28px;
-  padding: 1.5rem;
-}
-
-.hero-panel__card h2 {
-  font-size: 1.8rem;
-  line-height: 1.05;
-  margin-top: 0.5rem;
-}
-
-.panel-label,
 .signal-index,
 .card-kicker,
 .operating-count {
   display: inline-flex;
   padding: 0.45rem 0.7rem;
-}
-
-.panel-list {
-  margin: 1.2rem 0 0;
-  padding-left: 1rem;
-  color: var(--muted);
-  line-height: 1.7;
 }
 
 .signal-grid,
@@ -544,6 +475,14 @@ textarea:focus-visible {
   gap: 1rem;
 }
 
+.contact-form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact-form label {
   display: grid;
   gap: 0.55rem;
@@ -572,6 +511,14 @@ textarea:focus-visible {
 .contact-status {
   min-height: 3.4rem;
   margin: 0;
+}
+
+.contact-status--error {
+  color: #ffb199;
+}
+
+.contact-status--success {
+  color: #a9f5c4;
 }
 
 .footer {
@@ -630,10 +577,6 @@ textarea:focus-visible {
     margin-top: 0;
   }
 
-  .hero-panel__card {
-    margin-inline: 0;
-  }
-
   .hero-panel__image-wrap {
     padding: 0;
     min-height: auto;
@@ -690,13 +633,6 @@ textarea:focus-visible {
     transform: scaleY(1.067);
   }
 
-  .hero-scene__badges {
-    top: 0.8rem;
-    left: 0.8rem;
-    width: min(16rem, calc(100% - 1.6rem));
-  }
-
-  .hero-panel__card,
   .signal-card,
   .capability-card,
   .operating-card {

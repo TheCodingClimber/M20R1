@@ -80,6 +80,13 @@ const standards = [
   },
 ];
 
+const fieldLimits = {
+  company: 160,
+  email: 254,
+  message: 4000,
+  name: 120,
+};
+
 function FadeIn({ children, delay = 0 }) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(
@@ -341,24 +348,25 @@ function Hero() {
         </div>
       </FadeIn>
 
-        <FadeIn delay={0.12}>
-          <aside className="hero-panel">
-            <div className="hero-panel__image-wrap">
-              <div className="hero-scene" aria-hidden="true">
-                <video
-                  className="hero-scene__video"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                >
-                  <source src={heroVideoUrl} type="video/mp4" />
-                </video>
-              </div>
+      <FadeIn delay={0.12}>
+        <aside className="hero-panel">
+          <div className="hero-panel__image-wrap">
+            <div className="hero-scene" aria-hidden="true">
+              <video
+                className="hero-scene__video"
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="/og-image.png"
+                preload="metadata"
+              >
+                <source src={heroVideoUrl} type="video/mp4" />
+              </video>
             </div>
-          </aside>
-        </FadeIn>
+          </div>
+        </aside>
+      </FadeIn>
     </section>
   );
 }
@@ -471,8 +479,10 @@ function Contact() {
     email: "",
     company: "",
     message: "",
+    website: "",
   });
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState({ type: "idle", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -482,29 +492,61 @@ function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!form.name || !form.email || !form.message) {
-      setStatus("Please fill in your name, email, and message first.");
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      company: form.company.trim(),
+      message: form.message.trim(),
+      website: form.website.trim(),
+    };
+
+    if (!payload.name || !payload.email || !payload.message) {
+      setStatus({
+        type: "error",
+        message: "Please fill in your name, email, and message first.",
+      });
       return;
     }
 
-    const inquiry = [
-      "M20R1 inquiry brief",
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      `Company: ${form.company || "Not provided"}`,
-      "",
-      form.message,
-    ].join("\n");
+    setIsSubmitting(true);
+    setStatus({ type: "idle", message: "" });
 
     try {
-      await navigator.clipboard.writeText(inquiry);
-      setStatus(
-        "Inquiry brief copied to your clipboard. You can wire this form to Formspree, Resend, or your own API route next.",
-      );
-    } catch {
-      setStatus(
-        "The form is ready, but clipboard access was blocked in this browser. The next production step is wiring it to an inbox or API endpoint.",
-      );
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.message || "The message could not be sent.");
+      }
+
+      setStatus({
+        type: "success",
+        message: data.message || "Thanks, your brief was sent.",
+      });
+      setForm({
+        name: "",
+        email: "",
+        company: "",
+        message: "",
+        website: "",
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "The message could not be sent right now.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -522,7 +564,19 @@ function Contact() {
             </p>
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" onSubmit={handleSubmit} aria-busy={isSubmitting}>
+            <label className="contact-form__trap" aria-hidden="true">
+              Website
+              <input
+                name="website"
+                type="text"
+                value={form.website}
+                onChange={handleChange}
+                autoComplete="off"
+                tabIndex={-1}
+              />
+            </label>
+
             <label>
               Name
               <input
@@ -532,6 +586,8 @@ function Contact() {
                 onChange={handleChange}
                 placeholder="Your name"
                 autoComplete="name"
+                maxLength={fieldLimits.name}
+                required
               />
             </label>
 
@@ -544,6 +600,9 @@ function Contact() {
                 onChange={handleChange}
                 placeholder="you@example.com"
                 autoComplete="email"
+                inputMode="email"
+                maxLength={fieldLimits.email}
+                required
               />
             </label>
 
@@ -556,6 +615,7 @@ function Contact() {
                 onChange={handleChange}
                 placeholder="Organization"
                 autoComplete="organization"
+                maxLength={fieldLimits.company}
               />
             </label>
 
@@ -567,14 +627,16 @@ function Contact() {
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Describe the system, constraints, and what kind of partnership you are looking for."
+                maxLength={fieldLimits.message}
+                required
               />
             </label>
 
-            <button className="button button--solid" type="submit">
-              Copy inquiry brief
+            <button className="button button--solid" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending brief..." : "Send inquiry brief"}
             </button>
-            <p className="contact-status" aria-live="polite">
-              {status}
+            <p className={`contact-status contact-status--${status.type}`} aria-live="polite">
+              {status.message}
             </p>
           </form>
         </div>

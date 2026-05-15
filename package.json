@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node scripts/server.cjs",
+    "serve:dist": "node scripts/server.cjs"
   },
   "dependencies": {
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "three": "^0.183.2"
+    "resend": "^6.12.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
